@@ -19,21 +19,19 @@
       <strong>Welcome!</strong> Write the adress to fin the distance.
     </div>
 
-    <form method="POST">
+    <form action="/distance" method="post">
       <div class="form-group">
         <label for="address">Address: </label>
         <input
+          name="address"
           type="text"
           class="form-control"
           id="exampleInputadress"
-          placeholder="Enter adress"
-          value="{{ request.form['address'] }}"
+          placeholder="Enter address"
           required
         />
       </div>
-      <a href="http://localhost:5000/distance">
-        <button type="button" class="btn btn-primary">Submit</button>
-      </a>
+      <button type="submit" >submit</button>
     </form>
 
     <script

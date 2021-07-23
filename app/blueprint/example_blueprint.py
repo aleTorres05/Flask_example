@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request
 
+geolocation_main = Blueprint("geolocation_main", __name__, template_folder='template')
 geolocation = Blueprint("geolocation", __name__, template_folder='template')
 
-@geolocation.route("/")
+@geolocation_main.route("/")
 def get_location():
     return render_template('index.html')
 
@@ -10,4 +11,4 @@ def get_location():
 def get_distance():
     if request.method == 'POST':
         address = request.form["address"]
-    return "hellow"
+    return address
