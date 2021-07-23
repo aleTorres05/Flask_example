@@ -17,28 +17,23 @@
   <body>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
       <strong>Welcome!</strong> Write the adress to fin the distance.
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
     </div>
 
-    <form>
+    <form method="POST">
       <div class="form-group">
-        <label for="adress">Address: </label>
+        <label for="address">Address: </label>
         <input
           type="text"
           class="form-control"
           id="exampleInputadress"
           placeholder="Enter adress"
+          value="{{ request.form['address'] }}"
+          required
         />
-        <small class="form-text text-muted">Enter the adress</small>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <a href="http://localhost:5000/distance">
+        <button type="button" class="btn btn-primary">Submit</button>
+      </a>
     </form>
 
     <script
