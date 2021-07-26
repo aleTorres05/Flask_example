@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.register_blueprint(geolocation_main)
 app.register_blueprint(geolocation)
 
-
+#Created class for testing all endpoints for the Flask Blueprint
 class BluePrintTest(unittest.TestCase):
 
     def setUp(self) -> None:
@@ -30,5 +30,6 @@ class BluePrintTest(unittest.TestCase):
         return self.assertEqual(response.status_code, 200)
         
 
+#Code will only run if it is main file ran 
 if __name__ == "__main__":
     unittest.main()
