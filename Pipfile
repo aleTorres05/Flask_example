@@ -7,6 +7,7 @@ name = "pypi"
 flask = "==1.1.1"
 pydantic = "*"
 haversine = "*"
+loguru = "*"
 
 [dev-packages]
 

@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request
+
 from ..api.geolocation import get_location_info
 
 geolocation_main = Blueprint("geolocation_main", __name__, template_folder='template')

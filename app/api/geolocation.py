@@ -1,9 +1,15 @@
-import http.client, urllib.parse
+import http.client
+import json
+import urllib.parse
+
 import haversine as hs
 from haversine import Unit
-import json
+from loguru import logger
 
-def get_location_info(address: str): 
+
+def get_location_info(address: str):
+    
+    logger.add("logs/distance_response.log")
 
     conn = http.client.HTTPConnection('api.positionstack.com')
 
@@ -15,17 +21,17 @@ def get_location_info(address: str):
         })
 
     conn.request('GET', '/v1/forward?{}'.format(params))
-
-    res = conn.getresponse()
-    data = res.read()
-    my_json = data.decode('utf-8')
-    info = json.loads(my_json)
-    # final = json.dumps(info, indent=4, sort_keys=True)
-    lat = int(info["data"][0]["latitude"])
-    long = int(info["data"][0]["longitude"])
-    moscow_ring = (55.71, 37.612)
-    location = (lat, long)
-    distance = hs.haversine(location, moscow_ring, unit=Unit.KILOMETERS)
-
+    try:
+        res = conn.getresponse().read().decode('utf-8')
+        info = json.loads(res)
+        lat = int(info["data"][0]["latitude"])
+        long = int(info["data"][0]["longitude"])
+        moscow_ring = (55.71, 37.612)
+        location = (lat, long)
+        distance = hs.haversine(location, moscow_ring, unit=Unit.KILOMETERS)
+        logger.info(f"{info['data'][0]['label']} is {str('{:,.2f}'.format(distance))} KM away from Moscow Ring Road")
+    except Exception:
+        logger.exception(f"ERROR: PLEASE INSERT A VALID ADDRESS WITH EXCEPTION {Exception}")
+        return f"ERROR: PLEASE INSERT A VALID ADDRESS WITH EXCEPTION {Exception}"
     
-    return str(round(distance, 2))
+    return f"{info['data'][0]['label']} is {str('{:,.2f}'.format(distance))} KM away from Moscow Ring Road"
